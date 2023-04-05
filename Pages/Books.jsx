@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import Book from "../components/ui/Book"; 
 
-function Books() {
+function Books({ books: initialBooks }) {
+    const [books, setBooks] = useState(initialBooks);
   return (
     <div id="books__body">
       <main id="books__main">
@@ -19,6 +21,11 @@ function Books() {
                   <option value="HIGH_TO_LOW">Price, Low to High</option>
                   <option value="RATING">RATING</option>
                 </select>
+              </div>
+              <div className="books">
+                {books.map((book) => (
+                  <Book book={book} key={book.id} />
+                ))}
               </div>
             </div>
           </div>
