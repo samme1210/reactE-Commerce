@@ -3,10 +3,6 @@ import Book from './ui/Book'
 import { books } from '../data'
 
 function Featured() {
-    console.log(books)
-    function getFiveStarBooks() {
-        books.filter((book) => book.rating === 5).slice(0, 4);
-    }
   return (
     <section id="featured">
         <div className="container">

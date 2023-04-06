@@ -1,8 +1,34 @@
 import React, { useState } from "react";
-import Book from "../components/ui/Book"; 
+import Book from "../components/ui/Book";
 
 function Books({ books: initialBooks }) {
-    const [books, setBooks] = useState(initialBooks);
+  const [books, setBooks] = useState(initialBooks);
+
+  function filterBooks(filter) {
+    if (filter === "LOW_TO_HIGH") {
+      setBooks(
+        books
+          .slice()
+          .sort(
+            (a, b) =>
+              (a.salePrice || a.originalPrice) -
+              (b.salePrice || b.originalPrice)
+          )
+      );
+    } else if (filter === "HIGH_TO_LOW") {
+      setBooks(
+        books
+          .slice()
+          .sort(
+            (a, b) =>
+              (b.salePrice || b.originalPrice) -
+              (a.salePrice || a.originalPrice)
+          )
+      );
+    } else if (filter === "RATING") {
+      setBooks(books.slice().sort((a, b) => b.rating - a.rating));
+    }
+  }
   return (
     <div id="books__body">
       <main id="books__main">
@@ -13,13 +39,17 @@ function Books({ books: initialBooks }) {
                 <h2 className="section__title books__header--title">
                   All Books
                 </h2>
-                <select id="filter" defaultValue="DEFAULT">
+                <select
+                  id="filter"
+                  defaultValue="DEFAULT"
+                  onChange={(event) => filterBooks(event.target.value)}
+                >
                   <option value="DEFAULT" disabled>
                     Sort
                   </option>
                   <option value="LOW_TO_HIGH">Price, Low to High</option>
-                  <option value="HIGH_TO_LOW">Price, Low to High</option>
-                  <option value="RATING">RATING</option>
+                  <option value="HIGH_TO_LOW">Price, High to Low</option>
+                  <option value="RATING">Rating</option>
                 </select>
               </div>
               <div className="books">
