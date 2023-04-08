@@ -5,7 +5,7 @@ import Book from "../components/ui/Book";
 import Price from "../components/ui/Price";
 import Rating from "../components/ui/Rating";
 
-function BookInfo({ books }) {
+function BookInfo({ books, addToCart }) {
   const { id } = useParams();
   const book = books.find((book) => +book.id === +id);
 
@@ -24,7 +24,7 @@ function BookInfo({ books }) {
             </div>
             <div className="book__selected">
               <figure className="book__selected--figure">
-                <img src={book.url} alt="" />
+                <img src={book.url} alt="" className="book__selected--img" />
               </figure>
               <div className="book__selected--description">
                 <h2 className="book__selected--title">{book.title}</h2>
@@ -50,7 +50,9 @@ function BookInfo({ books }) {
                     perferendis natus eveniet! Officiis labore aut quasi.
                   </p>
                 </div>
-                <button className="btn">Add to cart</button>
+                <button className="btn" onClick={() => addToCart(book)}>
+                  Add to cart
+                </button>
               </div>
             </div>
           </div>
