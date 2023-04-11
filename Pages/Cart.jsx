@@ -1,7 +1,6 @@
 import React from "react";
-import { books } from "../data";
 
-function Cart() {
+function Cart({ cart }) {
   return (
     <div id="books__body">
       <div id="books__main">
@@ -17,41 +16,58 @@ function Cart() {
                 <span className="cart__total">Price</span>
               </div>
               <div className="cart__body">
-                <div className="cart__item">
-                  <div className="cart__book">
-                    <img src="" alt="" className="cart__book--img" />
-                    <div className="cart__book--info">
-                      <span className="cart__book--title">{books.title}</span>
-                      <span className="cart__book--price">{books.price}</span>
-                      <button className="cart__book--remove">Remove</button>
+                {cart.map((book) => {
+                  return (
+                    <div className="cart__item">
+                      <div className="cart__book">
+                        <img
+                          src={book.url}
+                          alt=""
+                          className="cart__book--img"
+                        />
+                        <div className="cart__book--info">
+                          <span className="cart__book--title">
+                            {book.title}
+                          </span>
+                          <span className="cart__book--price">
+                            £{(book.salePrice || book.originalPrice).toFixed(2)}
+                          </span>
+                          <button className="cart__book--remove">Remove</button>
+                        </div>
+                      </div>
+                      <div className="cart__quantity">
+                        <input
+                          type="number"
+                          min={0}
+                          max={99}
+                          className="cart__input"
+                        />
+                      </div>
+                      <div className="cart__total">$10</div>
                     </div>
-                  </div>
-                  <div className="cart__quantity">
-                      <input type="number" min={0} max={99} className="cart__input"/>
-                  </div>
-                  <div className="cart__total">
-                      $10
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
             <div className="total">
-                <div className="total__item total__sub-total">
-                    <span>Subtotal</span>
-                    <span>£9</span>
-                </div>
-                <div className="total__item total__tax">
-                    <span>Tax</span>
-                    <span>£1</span>
-                </div>
-                <div className="total__item total__total">
-                    <span>Total</span>
-                    <span>£10</span>
-                </div>
-                <button className="btn btn__checkout no-cursor"
-                onClick={() => alert(`Haven't got around to doing this :(`)}>
-                    Proceed to checkout
-                </button>
+              <div className="total__item total__sub-total">
+                <span>Subtotal</span>
+                <span>£9</span>
+              </div>
+              <div className="total__item total__tax">
+                <span>Tax</span>
+                <span>£1</span>
+              </div>
+              <div className="total__item total__total">
+                <span>Total</span>
+                <span>£10</span>
+              </div>
+              <button
+                className="btn btn__checkout no-cursor"
+                onClick={() => alert(`Haven't got around to doing this :(`)}
+              >
+                Proceed to checkout
+              </button>
             </div>
           </div>
         </div>

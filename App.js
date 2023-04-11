@@ -1,4 +1,3 @@
-
 import Nav from "./components/Nav.jsx";
 import Footer from "./components/Footer.jsx";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -13,15 +12,11 @@ function App() {
   const [cart, setCart] = useState([]);
 
   function addToCart(book) {
-    const dupeItem = cart.find(item => +item.id === +book.id);
-    if (dupeItem) {
-      dupeItem.quantity += 1;
-    }
-    setCart([...cart, {...book, quantity: 1}])
+    setCart([...cart, book]);
   }
 
   useEffect(() => {
-
+    console.log(cart)
   }, [cart])
 
   return (
@@ -30,8 +25,11 @@ function App() {
         <Nav />
         <Route path="/" exact component={Home} />
         <Route path="/books" exact render={() => <Books books={books} />} />
-        <Route path="/books/:id" render={() => <BookInfo books={books} addToCart={addToCart}/>} />
-        <Route path="/cart" render={() => <Cart books={books} />} />
+        <Route
+          path="/books/:id"
+          render={() => <BookInfo books={books} addToCart={addToCart} cart={cart}/>}
+        />
+        <Route path="/cart" render={() => <Cart books={books} cart={cart} />} />
         <Footer />
       </div>
     </Router>
